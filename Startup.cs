@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NotelyRESTApi.Database;
+using NotelyRESTApi.Repositories;
+using NotelyRESTApi.Repositories.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +35,7 @@ namespace NotelyRESTApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NotelyRESTApi", Version = "v1" });
             });
+            services.AddTransient<INoteRepoistory, NoteRepositoy>();
 
             IServiceCollection serviceCollections = services.AddDbContext<NotelyDbContext>(options => options.UseSqlite(Configuration["Data:NotelyRestApi:ConnectionString"]));
         }
